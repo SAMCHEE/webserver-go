@@ -3,6 +3,7 @@ package server
 import (
 	"fmt"
 
+	"github.com/SAMCHEE/webserver-go/middleware"
 	"github.com/SAMCHEE/webserver-go/route"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/compress"
@@ -40,7 +41,7 @@ func (s *Server) set() {
 }
 
 func (s *Server) middlewares() {
-	s.app.Use("/", compress.New())
+	s.app.Use("/", compress.New(), middleware.BindSiteConfig)
 	// my middlewares
 	// valid api-key
 	// ..

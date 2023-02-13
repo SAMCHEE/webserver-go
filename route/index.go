@@ -1,6 +1,7 @@
 package route
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/SAMCHEE/webserver-go/util"
@@ -14,11 +15,13 @@ func (*indexHandler) index(c *fiber.Ctx) error {
 	// response html template
 	// ./views/~
 	m := fiber.Map{} // Bind
+	// Site의 config, host(localhost or domain)은 siteconfig 패키지 따로 만들어서 불러오는데
+	// 우선 여기까지 기본 틀 먼저 익히신다음 더 작성 해볼게용 ㅎㅎ
 	m["Title"] = "my webserver"
 	m["Description"] = "my webserver is ..."
 	m["Keywords"] = "my,webserver,golang"
 	m["Author"] = "go"
-	m["Canonical"] = c.Path()
+	m["Canonical"] = fmt.Sprintf("http://localhost:4000%s", c.Path())
 	return c.Status(http.StatusOK).Render("index", m, "layout/global")
 }
 
